@@ -4,7 +4,6 @@ from django.db.models import Sum
 from expenses.models import Income, Expense
 
 class BalanceViewSet(viewsets.ViewSet):
-
     def list(self, request):
         total_income = Income.objects.aggregate(total=Sum('amount'))['total'] or 0
         

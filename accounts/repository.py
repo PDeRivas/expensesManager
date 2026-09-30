@@ -17,3 +17,10 @@ class UserRepository:
             email=email,
             password=password,
         )
+    
+    def create_superuser(self, username, email, password) -> CustomUser:
+        return self.model.objects.create_superuser(
+            username=username,
+            email=email,
+            password=password,
+        )

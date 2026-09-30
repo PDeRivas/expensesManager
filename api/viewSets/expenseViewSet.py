@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from api.serializers.expenseSerializer import ExpenseSerializer
 
 class ExpenseViewSet(viewsets.ModelViewSet):
-
     queryset = Expense.objects.all().order_by("date")
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated]

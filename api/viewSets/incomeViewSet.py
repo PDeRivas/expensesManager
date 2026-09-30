@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from api.serializers.incomeSerializer import IncomeSerializer
 
 class IncomeViewSet(viewsets.ModelViewSet):
-
     queryset = Income.objects.all().order_by("id")
     serializer_class = IncomeSerializer
     permission_classes = [IsAuthenticated]

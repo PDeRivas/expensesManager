@@ -26,18 +26,20 @@ from rest_framework_simplejwt.views import (
 from api.viewSets.incomeViewSet import IncomeViewSet
 from api.viewSets.expenseViewSet import ExpenseViewSet
 from api.viewSets.balanceViewSet import BalanceViewSet
+from api.viewSets.categoryViewSet import CategoryViewSet
 
 from accounts.viewset import UserViewSet
 
 router = routers.DefaultRouter()
-router.register(r"/income", IncomeViewSet)
-router.register(r"/expense", ExpenseViewSet)
-router.register(r"/balance", BalanceViewSet, basename='balance')
-router.register(r"/register", UserViewSet)
+router.register(r"income", IncomeViewSet)
+router.register(r"expense", ExpenseViewSet)
+router.register(r"balance", BalanceViewSet, basename='balance')
+router.register(r"category", CategoryViewSet)
+router.register(r"register", UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
     path("register/", include("rest_framework.urls", namespace="rest_framework",)),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
