@@ -23,7 +23,14 @@ class Expense(models.Model):
     )
 
 class Category(models.Model):
+    
+    class CategoryType(models.TextChoices):
+        EXPENSE = 'EXPENSE', 'Expense'
+        INCOME = 'INCOME', 'Income'
+    
     name = models.TextField(help_text='Category name')
+    categoryType = models.CharField(max_length=7, choices=CategoryType.choices, null=True, help_text='Decides whether a category is for expense or income')
+
 
 class CategoryIncome(models.Model):
     income = models.ForeignKey(
