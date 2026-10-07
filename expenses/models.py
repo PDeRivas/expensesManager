@@ -2,6 +2,12 @@ from datetime import date
 from django.conf import settings
 from django.db import models
 
+class PaymentMethod(models.Model):
+    name = models.TextField(help_text='Name of the payment method')
+
+    def __str__(self):
+        return self.name
+
 class Income(models.Model):
     amount = models.IntegerField(help_text='Amount of money added')
     date = models.DateField(default=date.today)
@@ -21,6 +27,7 @@ class Expense(models.Model):
         related_name='Expenses',
         null=True,
     )
+    paid = models.BooleanField(default=True)
 
 class Category(models.Model):
     
@@ -31,6 +38,8 @@ class Category(models.Model):
     name = models.TextField(help_text='Category name')
     categoryType = models.CharField(max_length=7, choices=CategoryType.choices, null=True, help_text='Decides whether a category is for expense or income')
 
+    def __str__(self):
+        return self.name
 
 class CategoryIncome(models.Model):
     income = models.ForeignKey(
@@ -49,5 +58,25 @@ class CategoryExpense(models.Model):
     )
     category = models.ForeignKey(
         to=Category,
+        on_delete=models.CASCADE,
+    )
+
+class MethodIncome(models.Model):
+    income = models.ForeignKey(
+        to=Income,
+        on_delete=models.CASCADE,
+    )
+    paymentMethod = models.ForeignKey(
+        to=PaymentMethod,
+        on_delete=models.CASCADE,
+    )
+
+class MethodExpense(models.Model):
+    expense = models.ForeignKey(
+        to=Expense,
+        on_delete=models.CASCADE,
+    )
+    paymentMethod = models.ForeignKey(
+        to=PaymentMethod,
         on_delete=models.CASCADE,
     )
