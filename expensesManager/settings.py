@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
-import dj-database-url
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'expensesManager.wsgi.application'
 
 
 DATABASES = {
-    'default': dj-database-url.config(
+    'default': dj_database_url.config(
         env='DATABASE_URL',
         default='sqlite:///{}/{}'.format(BASE_DIR, os.getenv('DATABASE_NAME', 'polls')),
         conn_max_age=600
@@ -96,7 +97,7 @@ DATABASES = {
 }
 
 
-if not os.getenv('DATABASE_URL') and os.getenv('DATABASE_ENGINE') == 'postgresql':
+if not os.getenv('DATABASE_URL'):
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DATABASE_NAME', 'polls'),
